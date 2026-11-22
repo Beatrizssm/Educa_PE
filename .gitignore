@@ -1,0 +1,6 @@
+# Arquivo original do INEP (maior que 100 MB)
+dados_originais/microdados_ed_basica_2024.csv
+
+# Arquivos temporários do Python
+__pycache__/
+*.pyc
