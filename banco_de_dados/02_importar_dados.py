@@ -1,6 +1,5 @@
 
 # EducaPE — Importação dos dados
-# Código desenvolvido com auxílio de IA (ChatGPT).
 
 import pandas as pd
 import os
@@ -57,22 +56,7 @@ escolas = escolas_publicas[
 
 print("Escolas preparadas para importação:", len(escolas))
 
-# Lê os dados tratados do Censo Escolar 2024
-arquivo = "dados_tratados/escolas_pe_2024.csv"
-
-dados = pd.read_csv(
-    arquivo,
-    sep=";",
-    encoding="utf-8-sig",
-    low_memory=False
-)
-
-# Seleciona apenas as escolas públicas:
-# 1 = Federal, 2 = Estadual, 3 = Municipal
-escolas_publicas = dados[
-    dados["TP_DEPENDENCIA"].isin([1, 2, 3])
-].copy()
-
+ 
 print("Total de escolas públicas:", len(escolas_publicas))
 
 
@@ -85,7 +69,38 @@ municipios = escolas_publicas[
 municipios = municipios.sort_values("NO_MUNICIPIO")
 
 print("Municípios encontrado:", len(municipios))
-# Conecta ao PostgreSQL para importar as escolas
+
+# Importa os municípios para o PostgreSQL
+with psycopg2.connect(
+    host=os.getenv("DB_HOST"),
+    port=os.getenv("DB_PORT"),
+    dbname=os.getenv("DB_NAME"),
+    user=os.getenv("DB_USER"),
+    password=os.getenv("DB_PASSWORD")
+) as conexao:
+
+    with conexao.cursor() as cursor:
+
+        for _, municipio in municipios.iterrows():
+            cursor.execute(
+                """
+                INSERT INTO municipios (
+                    co_municipio,
+                    no_municipio
+                )
+                VALUES (%s, %s)
+                ON CONFLICT (co_municipio) DO NOTHING;
+                """,
+                (
+                    int(municipio["CO_MUNICIPIO"]),
+                    municipio["NO_MUNICIPIO"]
+                )
+            )
+
+    conexao.commit()
+
+print("Municípios importados com sucesso!")
+# Importa as escolas públicas para o PostgreSQL
 with psycopg2.connect(
     host=os.getenv("DB_HOST"),
     port=os.getenv("DB_PORT"),

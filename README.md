@@ -488,3 +488,60 @@ Foram desenvolvidas consultas para analisar:
 ### Documentação
 
 Os scripts SQL, o código de importação, o Dicionário de Dados e o diagrama do banco estão organizados na pasta `banco_de_dados`.
+
+
+## Subtemas do Projeto
+
+O EducaPE foi dividido em três subtemas para analisar diferentes aspectos da infraestrutura das escolas públicas de Pernambuco.
+
+### 1. Conectividade e Tecnologia (foco principal)
+Analisar a disponibilidade de internet nas escolas, o acesso à internet pelos alunos e a existência de laboratórios de informática.
+
+### 2. Infraestrutura Básica
+Investigar a disponibilidade de água potável, o abastecimento pela rede pública e o fornecimento de energia elétrica.
+
+### 3. Recursos Educacionais
+Verificar a existência de bibliotecas e laboratórios de ciências nas escolas.
+
+## Justificativa da Escolha
+
+A infraestrutura escolar influencia as condições de ensino e aprendizagem. Por isso, o EducaPE utiliza dados oficiais do Censo Escolar 2024, disponibilizados pelo INEP, para identificar diferenças na disponibilidade de recursos entre as escolas públicas de Pernambuco.
+
+O subtema Conectividade e Tecnologia foi escolhido como foco principal por permitir investigar o acesso a recursos digitais nas instituições de ensino, incluindo a disponibilidade de internet para os alunos.
+
+
+
+## Levantamento Preliminar de Requisitos
+
+O banco de dados do EducaPE deverá permitir:
+
+- Consultar a quantidade de escolas públicas cadastradas.
+- Identificar escolas com acesso à internet.
+- Verificar a disponibilidade de internet para os alunos.
+- Consultar a existência de bibliotecas e laboratórios.
+- Analisar a infraestrutura escolar por município.
+- Identificar diferenças na disponibilidade de recursos entre as escolas.
+
+Esses requisitos orientam a criação das tabelas, dos relacionamentos e das consultas SQL do projeto.
+
+
+## Requisitos Funcionais
+
+- **RF001:** O sistema deverá permitir consultar as escolas públicas cadastradas.
+- **RF002:** O sistema deverá permitir consultar escolas por município.
+- **RF003:** O sistema deverá permitir consultar a disponibilidade de internet nas escolas.
+- **RF004:** O sistema deverá permitir consultar informações sobre água, energia, bibliotecas e laboratórios.
+- **RF005:** O sistema deverá permitir gerar resultados quantitativos sobre a infraestrutura escolar.
+
+
+## Requisitos Não Funcionais
+
+- **RNF001 — Banco de Dados:** O projeto deverá utilizar PostgreSQL para armazenar os dados das escolas públicas.
+
+- **RNF002 — Integridade:** O banco deverá utilizar chaves primárias e estrangeiras para manter os relacionamentos entre as tabelas.
+
+- **RNF003 — Segurança:** As credenciais de acesso ao banco deverão ser armazenadas em variáveis de ambiente, sem publicação no GitHub.
+
+- **RNF004 — Organização:** Os scripts SQL, códigos Python e documentos deverão ser organizados em pastas específicas.
+
+- **RNF005 — Desempenho:** As consultas deverão apresentar desempenho adequado para a análise dos dados escolares.
