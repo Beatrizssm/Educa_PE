@@ -4,3 +4,5 @@ dados_originais/microdados_ed_basica_2024.csv
 # Arquivos temporários do Python
 __pycache__/
 *.pyc
+.envS
+.env

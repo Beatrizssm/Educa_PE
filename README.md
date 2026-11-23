@@ -456,3 +456,35 @@ O projeto estabelece uma base inicial para as próximas etapas de levantamento d
 
 **EducaPE — Dados educacionais para compreender a infraestrutura das escolas públicas de Pernambuco.**
 
+
+
+## Banco de Dados PostgreSQL
+
+O projeto EducaPE utiliza PostgreSQL para armazenar e consultar os dados das escolas públicas de Pernambuco.
+
+### Estrutura do banco
+
+O banco de dados `educape` possui três tabelas:
+
+- **municipios:** identificação dos municípios.
+- **escolas:** informações das escolas públicas.
+- **infraestrutura:** recursos e serviços disponíveis nas escolas.
+
+### Dados importados
+
+- 185 localidades cadastradas.
+- 6.835 escolas públicas.
+- 6.835 registros de infraestrutura.
+
+### Consultas SQL
+
+Foram desenvolvidas consultas para analisar:
+
+1. A quantidade de escolas públicas.
+2. A disponibilidade de internet nas escolas.
+3. O acesso à internet pelos alunos.
+4. A infraestrutura das escolas públicas de Verdejante.
+
+### Documentação
+
+Os scripts SQL, o código de importação, o Dicionário de Dados e o diagrama do banco estão organizados na pasta `banco_de_dados`.
