@@ -2,10 +2,6 @@
 # PROJETO EDUCAPЕ
 # Análise da Infraestrutura das Escolas Públicas em Pernambuco
 # Fonte: Censo Escolar 2024 - INEP
-# UTILIZÇÃO DE INTELIGÊNCIA ARTIFICIAL
-# A IA foi utilizada como ferramenta de apoio durante o desenvolvimento do projeto,
-#auxiliando na organização e revisão de erros e do códigco Python.
-# Link público da conversa: 
 
 import pandas as pd
 

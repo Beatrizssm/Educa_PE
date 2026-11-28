@@ -1,8 +1,4 @@
 
--- EducaPE — Consultas SQL
--- Fonte: INEP, Censo Escolar 2024
--- Código desenvolvido com auxílio de IA (ChatGPT)
-
 -- Consulta 1: Quantidade de escolas públicas
 SELECT COUNT(*) AS total_escolas
 FROM escolas;
@@ -24,17 +20,17 @@ SELECT
 FROM infraestrutura;
 
 
--- Consulta 4: Infraestrutura das escolas públicas de Verdejante
+-- Consulta 4: Infraestrutura das escolas públicas por município
 SELECT
     m.no_municipio AS municipio,
-    COUNT(*) AS total_escolas,
+    COUNT(e.co_entidade) AS total_escolas,
     COUNT(*) FILTER (WHERE i.in_internet = 1) AS com_internet,
     COUNT(*) FILTER (WHERE i.in_agua_potavel = 1) AS com_agua_potavel,
     COUNT(*) FILTER (WHERE i.in_biblioteca = 1) AS com_biblioteca
 FROM municipios m
 INNER JOIN escolas e
     ON m.co_municipio = e.co_municipio
-INNER JOIN infraestrutura i
+LEFT JOIN infraestrutura i
     ON e.co_entidade = i.co_entidade
-WHERE m.co_municipio = 2616100
-GROUP BY m.no_municipio;
+GROUP BY m.co_municipio, m.no_municipio
+ORDER BY m.no_municipio;

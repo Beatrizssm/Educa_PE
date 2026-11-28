@@ -1,6 +1,4 @@
 
-# EducaPE — Importação dos dados
-
 import pandas as pd
 import os
 import psycopg2
