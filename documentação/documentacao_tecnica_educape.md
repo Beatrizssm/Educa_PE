@@ -16,14 +16,7 @@ A proposta consiste em organizar os dados em um banco de dados relacional Postgr
 Desenvolver um banco de dados relacional para armazenar, organizar e analisar informações sobre a infraestrutura das escolas públicas de Pernambuco.
 
 ### 2.2. Objetivos específicos
-
-- Obter dados oficiais do Censo Escolar 2024.
-- Explorar e tratar os dados utilizando Python e pandas.
-- Identificar as entidades e seus relacionamentos.
-- Modelar e implementar o banco de dados no PostgreSQL.
-- Importar os registros das escolas públicas.
-- Desenvolver consultas SQL para analisar a infraestrutura escolar.
-- Investigar a disponibilidade de recursos educacionais, com destaque para o município de Verdejante.
+- Analisar a disponibilidade de recursos educacionais nas escolas públicas dos municípios de Pernambuco.
 
 
 ## 3. Fonte dos Dados
@@ -296,27 +289,27 @@ A consulta sobre o acesso dos alunos à internet apresentou:
 | Sem acesso para alunos | 3.621 |
 | Sem informação | 993 |
 
-### 8.5. Análise do município de Verdejante
+## 8.5. Análise da infraestrutura por município
 
-Foi realizada uma consulta específica para analisar a infraestrutura das escolas públicas do município de Verdejante, identificado pelo código `2616100`.
+Foi desenvolvida uma consulta SQL para analisar a infraestrutura das escolas públicas por município, contemplando as 185 localidades presentes na base de dados.
 
-Os resultados foram:
+A consulta permite identificar:
 
-| Indicador | Quantidade |
-|---|---:|
-| Escolas públicas | 12 |
-| Escolas com internet | 11 |
-| Escolas com água potável | 12 |
-| Escolas com biblioteca | 3 |
+Quantidade de escolas por município.
 
-### 8.6. Interpretação dos resultados
+Escolas com acesso à internet.
+Escolas com água potável.
+Escolas com biblioteca.
 
-Os resultados demonstram que a disponibilidade de internet nas escolas não significa necessariamente que os alunos tenham acesso a esse recurso.
+Os resultados permitem visualizar e comparar a disponibilidade desses recursos entre as localidades de Pernambuco.
 
-Em Verdejante, 11 das 12 escolas registram disponibilidade de internet, enquanto apenas 3 possuem biblioteca.
+## 8.6. Interpretação dos resultados
 
-Essas informações permitem identificar diferenças na disponibilidade de recursos educacionais e contribuem para a análise da infraestrutura escolar.
+Os resultados permitem analisar a disponibilidade de recursos de infraestrutura nas escolas públicas de Pernambuco.
 
+A consulta por município possibilita comparar a quantidade de escolas com acesso à internet, água potável e bibliotecas, contribuindo para identificar possíveis diferenças na infraestrutura escolar entre as localidades.
+
+Essas informações auxiliam na compreensão das condições de infraestrutura da educação pública no estado.
 
 ## 9. Requisitos do Projeto
 
@@ -363,7 +356,7 @@ A partir dos microdados do Censo Escolar 2024, disponibilizados pelo INEP, foi p
 
 A implementação das tabelas, dos relacionamentos e das consultas SQL possibilitou analisar indicadores de infraestrutura escolar, como acesso à internet, água potável e disponibilidade de bibliotecas.
 
-A análise específica do município de Verdejante demonstrou a aplicação prática do banco de dados na identificação de recursos disponíveis nas escolas.
+As consultas desenvolvidas permitem analisar e comparar a disponibilidade de recursos de infraestrutura nas escolas públicas dos municípios de Pernambuco, demonstrando a aplicação prática do banco de dados na investigação das condições da educação pública estadual.
 
 O projeto também contribuiu para o desenvolvimento de conhecimentos sobre modelagem de dados, integridade referencial, tratamento de arquivos CSV e consultas SQL.
 

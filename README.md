@@ -1,6 +1,3 @@
-Aqui está o **README completo e atualizado do EducaPE**, com os nomes de Maria Beatriz e Edcalos França, a informação de que vocês realizaram todas as atividades juntos e as reuniões presenciais às segundas e quartas-feiras, sem mencionar WhatsApp.
-
-Você pode copiar o conteúdo abaixo e substituir o texto do seu `README.md` no Cursor.
 
 # EducaPE — Análise da Infraestrutura das Escolas Públicas em Pernambuco
 
@@ -14,8 +11,7 @@ A pesquisa busca compreender como os recursos e serviços escolares estão distr
 
 Entre os aspectos investigados estão o abastecimento de água, o fornecimento de energia elétrica, o acesso à internet, a disponibilidade de bibliotecas e a existência de laboratórios.
 
-Nesta primeira fase, denominada **Descoberta**, o trabalho concentra-se na obtenção, organização e análise exploratória dos dados, estabelecendo uma base para as próximas etapas de desenvolvimento do banco de dados.
-
+O projeto passou pela fase de Descoberta, com a obtenção, organização e análise exploratória dos dados. Posteriormente, foi desenvolvido o banco de dados relacional em PostgreSQL, incluindo a criação das tabelas, os relacionamentos, a importação dos dados e as consultas SQL para análise da infraestrutura escolar.
 ## 2. Objetivos
 
 ### Objetivo geral
@@ -35,15 +31,18 @@ Analisar a distribuição da infraestrutura das escolas públicas de Pernambuco,
 
 ## 3. Tecnologias utilizadas
 
-| Tecnologia | Aplicação                                                  |
-| ---------- | ---------------------------------------------------------- |
-| Python     | Processamento e análise exploratória dos dados             |
-| Pandas     | Leitura, filtragem, agrupamento e contagem das informações |
-| CSV        | Formato dos arquivos de dados originais e tratados         |
-| Cursor     | Ambiente de desenvolvimento e execução do código           |
-| Markdown   | Documentação do projeto                                    |
-
-O projeto encontra-se na Fase 01. Nesta etapa, ainda não foram implementados frontend, backend, API ou banco de dados relacional.
+| Tecnologia | Aplicação |
+|---|---|
+| Python | Leitura, tratamento e importação dos dados. |
+| Pandas | Manipulação e análise dos arquivos CSV. |
+| PostgreSQL | Armazenamento dos dados em um banco relacional. |
+| SQL | Criação das tabelas e consultas de análise. |
+| pgAdmin 4 | Administração do banco e execução das consultas SQL. |
+| psycopg2 | Conexão entre Python e PostgreSQL. |
+| python-dotenv | Carregamento das configurações de conexão por variáveis de ambiente. |
+| Cursor | Edição e organização dos códigos Python e SQL. |
+| Git e GitHub | Controle de versões e armazenamento do projeto. |
+| Markdown | Elaboração da documentação.
 
 ## 4. Fonte dos dados
 
@@ -69,41 +68,46 @@ Após a extração dos arquivos, foi realizada a seleção dos registros corresp
 
 O arquivo resultante foi armazenado separadamente para preservar os dados originais.
 
+
 ## 5. Estrutura do projeto
 
-```
+O projeto EducaPE está organizado nas seguintes pastas e arquivos:
+
+```text
 EducaPE/
 │
+├── banco_de_dados/
+│   ├── 01_criar_tabelas.sql
+│   ├── 02_importar_dados.py
+│   ├── 03_consultas.sql
+│   ├── 04_dicionario_dados.md
+│   └── diagramas/
+│
 ├── dados_originais/
-│   └── microdados_ed_basica_2024.csv
 │
 ├── dados_tratados/
 │   └── escolas_pe_2024.csv
 │
-├── analise.py
+├── analise_py/
 │
-└── README.md
+├── README.md
+└── documentacao_tecnica_educape.md
 ```
 
-### Responsabilidade de cada arquivo
+### Responsabilidade das pastas e arquivos
 
-**dados_originais/**
+banco_de_dados/: reúne os scripts SQL, o código de importação, o dicionário de dados e os diagramas.
 
-Contém o arquivo original do Censo Escolar 2024, preservando os dados disponibilizados pelo INEP.
+dados_originais/: armazena os microdados originais disponibilizados pelo INEP.
 
-**dados_tratados/**
+dados_tratados/: contém os dados filtrados e preparados para análise.
 
-Armazena o arquivo CSV com os registros das escolas de Pernambuco, obtidos após a filtragem por unidade federativa.
+analise_py/: reúne os códigos Python utilizados na exploração dos dados.
 
-O arquivo contém escolas de diferentes dependências administrativas. A seleção das escolas públicas é realizada posteriormente pelo código Python.
+README.md: apresenta o projeto, seus objetivos, metodologia e resultados.
 
-**analise.py**
+documentacao_tecnica_educape.md: descreve os aspectos técnicos do banco de dados e sua implementação.
 
-Script Python responsável pela exploração inicial dos dados, incluindo contagens, agrupamentos, filtragens e análise dos indicadores de infraestrutura.
-
-**README.md**
-
-Documentação do projeto, contendo objetivos, fonte dos dados, organização, metodologia, resultados e instruções de execução.
 
 ## 6. Metodologia
 
@@ -260,52 +264,75 @@ Este dicionário é preliminar e poderá ser ampliado e validado com a documenta
 
 ## 11. Identificação preliminar das entidades
 
-A partir da estrutura dos dados, foram identificadas duas entidades principais.
+A partir da análise dos dados e da modelagem do banco de dados, foram definidas três entidades principais.
 
-### Município
+1. Município
 
-Representa a localidade onde as escolas estão situadas.
+Representa as localidades onde as escolas estão situadas.
 
-Atributos preliminares:
+Atributos:
 
-- Código do município.
-- Nome do município.
+Código do município (co_municipio).
 
-### Escola
+Nome do município (no_municipio).
 
-Representa a instituição de ensino.
+2. Escola
 
-Atributos preliminares:
+Representa as instituições públicas de ensino cadastradas no projeto.
 
-- Código da escola.
-- Nome da escola.
-- Município.
-- Dependência administrativa.
-- Indicadores de infraestrutura.
+Atributos:
 
-### Relacionamento inicial
+Código da escola (co_entidade).
 
-Um município pode possuir várias escolas, enquanto cada escola está associada a uma localidade na base analisada.
+Nome da escola (no_entidade).
 
-**Município (1) — (N) Escola**
+Código do município (co_municipio).
 
-Esse relacionamento será detalhado na etapa de modelagem conceitual.
+Tipo de dependência administrativa (tp_dependencia).
 
-## 12. Subtemas considerados
+3. Infraestrutura
 
-Durante a definição do projeto, foram considerados três possíveis subtemas:
+Armazena informações sobre os recursos e serviços disponíveis nas escolas.
 
-**1. Abastecimento de água nas escolas públicas**
+Atributos:
 
-Investigação da disponibilidade de água potável e das diferentes fontes de abastecimento.
+Código da escola (co_entidade).
+Indicador de água potável.
+Indicador de abastecimento pela rede pública.
+Indicador de energia elétrica da rede pública.
+Indicador de internet.
+Indicador de internet para alunos.
+Indicador de biblioteca.
+Indicador de laboratório de informática.
+Indicador de laboratório de ciências.
 
-**2. Acesso à tecnologia e à internet**
+### Relacionamentos
 
-Análise da disponibilidade de conexão, acesso dos alunos e laboratórios de informática.
+- **Município (1:N) Escola:** um município pode possuir várias escolas.
+- **Escola (1:1) Infraestrutura:** cada registro de infraestrutura está associado a uma única escola.
 
-**3. Infraestrutura física e acessibilidade**
+Esses relacionamentos são implementados por meio de chaves primárias (PK) e chaves estrangeiras (FK).
 
-Investigação dos espaços e recursos escolares, incluindo bibliotecas, laboratórios e condições de acessibilidade.
+
+## 12. Subtemas do projeto
+
+O EducaPE aborda três subtemas com a mesma importância na análise da infraestrutura das escolas públicas de Pernambuco.
+
+### 1. Abastecimento de água
+
+Análise da disponibilidade de água potável e das diferentes fontes de abastecimento utilizadas pelas escolas.
+
+### 2. Energia elétrica
+
+Análise da disponibilidade de energia da rede pública, geradores e fontes renováveis.
+
+### 3. Internet e conectividade
+
+Análise da disponibilidade de internet nas escolas e do acesso oferecido aos alunos.
+
+### Indicadores complementares
+
+Também são considerados indicadores relacionados à existência de bibliotecas, salas de leitura e laboratórios.
 
 ### Tema selecionado
 
@@ -324,21 +351,46 @@ O tema foi escolhido por permitir uma análise mais abrangente, relacionando dif
 
 Essas perguntas orientarão o levantamento de requisitos e o desenvolvimento do banco de dados nas próximas fases.
 
+## Requisitos Funcionais
+
+- **RF001:** O banco de dados deverá permitir consultar as escolas públicas cadastradas.
+- **RF002:** O banco de dados deverá permitir consultar as escolas por município.
+- **RF003:** O banco de dados deverá permitir consultar a disponibilidade de internet nas escolas.
+- **RF004:** O banco de dados deverá permitir consultar informações sobre abastecimento de água, energia elétrica, bibliotecas e laboratórios.
+- **RF005:** O banco de dados deverá permitir obter resultados quantitativos sobre os indicadores de infraestrutura escolar.
+
+## Requisitos Não Funcionais
+
+- **RNF001 — Banco de Dados:** O projeto deverá utilizar PostgreSQL para armazenar os dados das escolas públicas.
+- **RNF002 — Integridade:** O banco deverá utilizar chaves primárias e estrangeiras para garantir a integridade dos relacionamentos entre as tabelas.
+- **RNF003 — Segurança:** As credenciais de acesso ao banco deverão ser armazenadas em variáveis de ambiente, sem publicação no GitHub.
+- **RNF004 — Organização:** Os scripts SQL, códigos Python e documentos deverão ser organizados em pastas específicas.
+- **RNF005 — Desempenho:** As consultas deverão apresentar desempenho adequado para a análise dos dados escolares.
+
 ## 14. Instalação e configuração
 
 ### Pré-requisitos
 
-- Python 3 instalado.
-- Biblioteca Pandas.
-- Arquivo CSV tratado disponível na pasta correspondente.
+Para executar o projeto EducaPE, são necessárias as seguintes ferramentas:
 
-### Instalar a biblioteca necessária
+- Python 3.
+- PostgreSQL.
+- pgAdmin 4.
+- Bibliotecas Pandas, psycopg2 e python-dotenv.
+- Arquivo CSV tratado do Censo Escolar 2024.
+- Arquivo .env configurado com os dados de conexão ao PostgreSQL.
+
+### Instalação das bibliotecas
 
 No terminal, execute:
 
-```
-pip install pandas
-```
+pip install pandas psycopg2-binary python-dotenv
+
+### Configuração
+
+O projeto utiliza um arquivo .env para armazenar as configurações de conexão com o PostgreSQL.
+
+As credenciais devem permanecer privadas e não devem ser publicadas no GitHub.
 
 ### Estrutura necessária
 
@@ -346,25 +398,42 @@ Antes da execução, confira se o arquivo `escolas_pe_2024.csv` está dentro da 
 
 ## 15. Executando a análise
 
-Abra o projeto EducaPE no Cursor ou em outro editor compatível com Python.
+Para executar o projeto EducaPE, siga as etapas abaixo.
 
-No terminal, a partir da pasta principal do projeto, execute:
+### Preparação do banco de dados
 
-```
-python analise.py
-```
+Abra o pgAdmin 4, conecte-se ao PostgreSQL e acesse o banco de dados educape.
 
-O script apresentará no terminal:
+Para criar as tabelas, execute o script:
+**banco_de_dados/01_criar_tabelas.sql**
 
-- Informações iniciais sobre os dados.
-- Quantidade de escolas e localidades.
-- Distribuição das escolas por município.
-- Quantidade de escolas públicas.
-- Resultados dos indicadores de água.
-- Identificação das variáveis de infraestrutura.
-- Resultados de energia, internet, bibliotecas e laboratórios.
+### Importação dos dados
 
-A análise atual é realizada por linha de comando, sem interface gráfica.
+Com o banco de dados preparado e o arquivo .env configurado, execute no terminal, a partir da pasta principal do projeto:
+
+**python banco_de_dados/02_importar_dados.py**
+
+Esse script realiza a conexão com o PostgreSQL e importa os dados dos municípios, escolas públicas e infraestrutura.
+
+### Execução das consultas SQL
+
+No pgAdmin 4, abra o Query Tool e execute as consultas disponíveis no arquivo:
+
+**banco_de_dados/03_consultas.sql**
+
+As consultas permitem analisar a quantidade de escolas públicas e a disponibilidade de recursos de infraestrutura.
+
+### Análise exploratória
+
+Para executar a análise exploratória dos dados, utilize o terminal:
+
+**python analise_py/analise.py**
+
+O script apresenta informações sobre as escolas, os municípios e os indicadores de infraestrutura.
+
+### Observação
+
+Os scripts SQL são executados no pgAdmin 4, enquanto os scripts Python são executados pelo terminal.
 
 ## 16. Organização e responsabilidades da equipe
 
@@ -390,52 +459,42 @@ Não houve divisão exclusiva de tarefas entre os integrantes.
 
 ## 17. Comunicação e acompanhamento da equipe
 
-A equipe do projeto EducaPE, formada por **Maria Beatriz e Edcalos França**, realiza reuniões presenciais todas as segundas e quartas-feiras, na faculdade.
+A equipe do projeto EducaPE, formada por Maria Beatriz e Edcalos França, realiza reuniões presenciais às segundas e quartas-feiras, na faculdade.
 
-Durante esses encontros, os integrantes discutem o andamento do projeto, compartilham os resultados das análises, esclarecem dúvidas e definem as próximas atividades.
+Durante esses encontros, os integrantes discutem o andamento do projeto, compartilham resultados, esclarecem dúvidas e definem as próximas atividades.
 
-O desenvolvimento é realizado de forma colaborativa, com participação de ambos os integrantes em todas as etapas.
+O desenvolvimento é realizado de forma colaborativa, com participação de ambos os integrantes nas decisões e em todas as etapas do trabalho.
 
-### Registro das reuniões
+## 18. Ferramentas de apoio ao desenvolvimento
 
-As reuniões presenciais são utilizadas para acompanhar o desenvolvimento do projeto e organizar as atividades da Fase 01.
+Durante o desenvolvimento do EducaPE, foi utilizado o Cursor como ambiente de desenvolvimento, em substituição ao Visual Studio Code, devido às limitações de desempenho do notebook, que dificultavam a utilização do VS Code.
 
-As datas específicas, os assuntos discutidos e as decisões tomadas serão registrados conforme os encontros efetivamente realizados.
-
-**Registro pendente:** inserir as datas e decisões reais das reuniões realizadas pela equipe.
-
-## 18. Utilização de inteligência artificial
-
-A inteligência artificial foi utilizada como ferramenta de apoio durante o desenvolvimento do projeto, auxiliando na organização das atividades, elaboração e revisão do código Python, interpretação dos resultados e estruturação da documentação.
-
-O código foi executado e testado durante o desenvolvimento.
-
-**Link público da conversa utilizada:** PENDENTE DE INSERÇÃO.
+O Cursor também foi utilizado como ferramenta de apoio para identificar e corrigir erros nos códigos, auxiliando na resolução de dificuldades técnicas encontradas durante a implementação do projeto.
 
 ## 19. Próximas etapas
 
-Após a conclusão da Fase 01, o projeto poderá avançar para:
+Com a estrutura do banco de dados implementada, as próximas atividades do EducaPE são:
 
-- Levantamento e formalização dos requisitos.
-- Definição do escopo do banco de dados.
-- Elaboração do Diagrama Entidade-Relacionamento (DER).
-- Desenvolvimento do modelo lógico relacional.
-- Definição de chaves primárias e estrangeiras.
-- Estruturação das tabelas.
-- Implementação do banco de dados, conforme as próximas orientações da disciplina.
-- Desenvolvimento de consultas para responder às perguntas de pesquisa.
+- Revisar e validar os requisitos levantados.
+- Conferir a consistência entre o DER, o modelo lógico e as tabelas implementadas.
+- Validar as consultas SQL e os resultados obtidos.
+- Finalizar a documentação técnica do projeto.
+- Organizar os resultados das análises para a apresentação acadêmica.
+- Realizar a revisão final do repositório no GitHub.
 
-Essas atividades ainda não fazem parte da implementação concluída nesta fase.
+Essas atividades têm como objetivo consolidar o desenvolvimento e preparar o projeto para sua apresentação e avaliação.
 
 ## 20. Considerações finais
 
-A primeira etapa do EducaPE permitiu conhecer a estrutura dos microdados do Censo Escolar 2024 e identificar informações relevantes sobre as condições de infraestrutura das escolas públicas de Pernambuco.
+O desenvolvimento do EducaPE permitiu organizar, explorar e analisar os microdados do Censo Escolar 2024, disponibilizados pelo INEP, identificando informações relevantes sobre as condições de infraestrutura das escolas públicas de Pernambuco.
 
-A análise preliminar revelou diferenças na disponibilidade de recursos, especialmente no acesso dos alunos à internet, na presença de bibliotecas e na existência de laboratórios.
+Durante o desenvolvimento, foram identificadas 6.835 escolas públicas distribuídas em 185 localidades. A análise exploratória revelou diferenças na disponibilidade de recursos, especialmente no abastecimento de água, no fornecimento de energia elétrica e no acesso à internet.
 
-Os resultados também evidenciaram a importância de tratar adequadamente os registros sem informação e de considerar as características de cada localidade.
+Também foi desenvolvido um banco de dados relacional utilizando PostgreSQL, composto pelas tabelas municipios, escolas e infraestrutura, com seus respectivos relacionamentos. Foram realizadas a importação dos dados, a elaboração do diagrama do banco e a criação de consultas SQL para investigar os indicadores de infraestrutura escolar.
 
-O projeto estabelece uma base inicial para as próximas etapas de levantamento de requisitos e modelagem de banco de dados, contribuindo para a aplicação prática dos conhecimentos da disciplina.
+Os resultados demonstram a importância da organização e análise dos dados educacionais para compreender as condições das escolas públicas e identificar possíveis diferenças entre as localidades pernambucanas.
+
+Dessa forma, o EducaPE consolida a aplicação prática dos conhecimentos de Banco de Dados, envolvendo coleta, tratamento, modelagem, armazenamento e consulta de dados reais.
 
 ## 21. Autores
 
@@ -449,99 +508,10 @@ O projeto estabelece uma base inicial para as próximas etapas de levantamento d
 
 **Integrantes:**
 
-- Maria Beatriz
-- Edcalos França
+- Maria Beatriz Silva Santos
+- Edcalos França da Silva
 
 ---
 
 **EducaPE — Dados educacionais para compreender a infraestrutura das escolas públicas de Pernambuco.**
 
-
-
-## Banco de Dados PostgreSQL
-
-O projeto EducaPE utiliza PostgreSQL para armazenar e consultar os dados das escolas públicas de Pernambuco.
-
-### Estrutura do banco
-
-O banco de dados `educape` possui três tabelas:
-
-- **municipios:** identificação dos municípios.
-- **escolas:** informações das escolas públicas.
-- **infraestrutura:** recursos e serviços disponíveis nas escolas.
-
-### Dados importados
-
-- 185 localidades cadastradas.
-- 6.835 escolas públicas.
-- 6.835 registros de infraestrutura.
-
-### Consultas SQL
-
-Foram desenvolvidas consultas para analisar:
-
-1. A quantidade de escolas públicas.
-2. A disponibilidade de internet nas escolas.
-3. O acesso à internet pelos alunos.
-4. A infraestrutura das escolas públicas de Verdejante.
-
-### Documentação
-
-Os scripts SQL, o código de importação, o Dicionário de Dados e o diagrama do banco estão organizados na pasta `banco_de_dados`.
-
-
-## Subtemas do Projeto
-
-O EducaPE foi dividido em três subtemas para analisar diferentes aspectos da infraestrutura das escolas públicas de Pernambuco.
-
-### 1. Conectividade e Tecnologia (foco principal)
-Analisar a disponibilidade de internet nas escolas, o acesso à internet pelos alunos e a existência de laboratórios de informática.
-
-### 2. Infraestrutura Básica
-Investigar a disponibilidade de água potável, o abastecimento pela rede pública e o fornecimento de energia elétrica.
-
-### 3. Recursos Educacionais
-Verificar a existência de bibliotecas e laboratórios de ciências nas escolas.
-
-## Justificativa da Escolha
-
-A infraestrutura escolar influencia as condições de ensino e aprendizagem. Por isso, o EducaPE utiliza dados oficiais do Censo Escolar 2024, disponibilizados pelo INEP, para identificar diferenças na disponibilidade de recursos entre as escolas públicas de Pernambuco.
-
-O subtema Conectividade e Tecnologia foi escolhido como foco principal por permitir investigar o acesso a recursos digitais nas instituições de ensino, incluindo a disponibilidade de internet para os alunos.
-
-
-
-## Levantamento Preliminar de Requisitos
-
-O banco de dados do EducaPE deverá permitir:
-
-- Consultar a quantidade de escolas públicas cadastradas.
-- Identificar escolas com acesso à internet.
-- Verificar a disponibilidade de internet para os alunos.
-- Consultar a existência de bibliotecas e laboratórios.
-- Analisar a infraestrutura escolar por município.
-- Identificar diferenças na disponibilidade de recursos entre as escolas.
-
-Esses requisitos orientam a criação das tabelas, dos relacionamentos e das consultas SQL do projeto.
-
-
-## Requisitos Funcionais
-
-- **RF001:** O sistema deverá permitir consultar as escolas públicas cadastradas.
-- **RF002:** O sistema deverá permitir consultar escolas por município.
-- **RF003:** O sistema deverá permitir consultar a disponibilidade de internet nas escolas.
-- **RF004:** O sistema deverá permitir consultar informações sobre água, energia, bibliotecas e laboratórios.
-- **RF005:** O sistema deverá permitir gerar resultados quantitativos sobre a infraestrutura escolar.
-
-
-## Requisitos Não Funcionais
-
-- **RNF001 — Banco de Dados:** O projeto deverá utilizar PostgreSQL para armazenar os dados das escolas públicas.
-
-- **RNF002 — Integridade:** O banco deverá utilizar chaves primárias e estrangeiras para manter os relacionamentos entre as tabelas.
-
-- **RNF003 — Segurança:** As credenciais de acesso ao banco deverão ser armazenadas em variáveis de ambiente, sem publicação no GitHub.
-
-- **RNF004 — Organização:** Os scripts SQL, códigos Python e documentos deverão ser organizados em pastas específicas.
-
-- **RNF005 — Desempenho:** As consultas deverão apresentar desempenho adequado para a análise dos dados escolares.
